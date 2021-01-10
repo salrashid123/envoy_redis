@@ -42,16 +42,6 @@ Download the source files froe the git repo here. You should end up with:
 
 ### Redis
 
-Once you donwload redis, edit redis.conf and uncomment the following line to enable default user AUTH:
-
-# IMPORTANT NOTE: starting with Redis 6 "requirepass" is just a compatiblity
-# layer on top of the new ACL system. The option effect will be just setting
-# the password for the default user. Clients will still authenticate using
-# AUTH <password> as usually, or more explicitly with AUTH default <password>
-# if they follow the new protocol: both will work.
-#
-requirepass foobared
-
 Start Redis:
 
 ```bash
