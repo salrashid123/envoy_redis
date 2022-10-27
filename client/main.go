@@ -15,6 +15,11 @@ var ()
 func main() {
 
 	caCert, err := ioutil.ReadFile("../certs/CA_crt.pem")
+	if err != nil {
+		fmt.Printf("%v", err)
+		return
+	}
+
 	caCertPool := x509.NewCertPool()
 	caCertPool.AppendCertsFromPEM(caCert)
 
@@ -31,8 +36,10 @@ func main() {
 	}
 
 	client := redis.NewClient(&redis.Options{
-		Addr:      "localhost:6000", // "server.domain.com:6379",
-		Password:  "bar",
+		Addr:     "localhost:6000", // envoy
+		Password: "bar",            //envoy
+		//Addr:      "localhost:6379", //direct
+		//Password:  "foobared", // direct
 		DB:        0, // use default DB
 		TLSConfig: config,
 	})

@@ -137,7 +137,7 @@ Some things to point out below:
                 address: 127.0.0.1
                 port_value: 6379
     typed_extension_protocol_options:
-      envoy.redis_proxy:
+      envoy.filters.network.redis_proxy:
         "@type": type.googleapis.com/google.protobuf.Struct
         value:
           auth_password:
@@ -181,6 +181,21 @@ In the envoy logs, you'll see it traverses the filter
 [2021-01-10 18:37:22.090][236708][debug][redis] [source/extensions/filters/network/redis_proxy/command_splitter_impl.cc:539] redis: splitting '["incr", "key"]'
 [2021-01-10 18:37:22.090][236708][debug][redis] [source/extensions/filters/network/redis_proxy/command_splitter_impl.cc:539] redis: splitting '["get", "key"]'
 [2021-01-10 18:37:22.091][236708][debug][connection] [source/common/network/connection_impl.cc:619] [C4] remote close
+
+```
+
+Note, you can switch the go client between going through enovy or directly to redis by commenting out the sections 
+
+
+```golang
+	client := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6000", // envoy
+		Password: "bar",            //envoy
+		//Addr:      "localhost:6379", //direct
+		//Password:  "foobared", // direct
+		DB:        0, // use default DB
+		TLSConfig: config,
+	})
 
 ```
 

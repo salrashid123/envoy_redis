@@ -56,7 +56,7 @@ static_resources:
                 address: 127.0.0.1
                 port_value: 6379
     typed_extension_protocol_options:
-      envoy.redis_proxy:
+      envoy.filters.network.redis_proxy:
         "@type": type.googleapis.com/google.protobuf.Struct
         value:
           auth_password:
